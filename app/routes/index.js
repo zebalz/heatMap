@@ -1,11 +1,9 @@
 const router = require('express').Router()
 const clientRoutes = require('./client.routes')
-const heatRoutes = require('./heat.routes')
+// const heatRoutes = require('./heat.routes')
 
 module.exports = router
 
-
-router.use('')
 
 router.use(clientRoutes)
 
