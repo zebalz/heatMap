@@ -22,8 +22,11 @@ var source = {
             // subordinate module files
             'content/client/**/module.js',
 
-            // other js files [controllers, services, etc]
-            'content/client/**/!(module)*.js'
+            // other js files [controllers, services, etc.]
+            'content/client/**/!(module)*.js',
+
+            // start client app
+            'content/client/bootstrap.js'
         ]
     }
 }
@@ -38,8 +41,7 @@ const appWasBroken = {
 
 gulp.task('js', buildApp('js'))
 
-// creates taskl to concat angular files
-
+// creates task to concat angular files
 function buildApp(fileset) {
     return function () {
         let isBroken = false
@@ -51,7 +53,7 @@ function buildApp(fileset) {
                     appWasBroken[fileset] = true
                     const strippedError = Object.create(error)
                     strippedError.stack = stripAnsi(error.stack)
-                    return notify.onError('<%= error.stack %>')(strippedError)
+                    return notify.onError("<%= error.stack %>")(strippedError)
                 }
             }))
             .pipe(babel({
@@ -72,7 +74,7 @@ function buildApp(fileset) {
     }
 }
 
-gulp.task('watch', ['js'], function () {
+gulp.task('watch', ['js' ], function () {
     gulp.watch(source.js.src, { interval: 200 }, ['js'])
 })
 
@@ -82,7 +84,6 @@ gulp.task('vendor', () => buildVendor(scripts, destinations.js))
 function buildVendor(scripts, dest) {
     let tasks = []
     _.forIn(scripts.chunks, function (chunkScripts, chunkName) {
-        
         let paths = []
         chunkScripts.forEach(function (script) {
             let scriptFileName = scripts.paths[script]
@@ -92,13 +93,13 @@ function buildVendor(scripts, dest) {
             }
             paths.push(scriptFileName)
         })
-        
+
         tasks.push(gulp.src(paths)
             .pipe(concat(chunkName + '.js'))
-            .on('error', swallowError))
+            .on('error', swallowError)
             .pipe(strip())
             .pipe(uglify())
-            .pipe(gulp.dest(dest))
+            .pipe(gulp.dest(dest)))
     })
     return mergeStream(tasks)
 }
@@ -107,7 +108,6 @@ gulp.task('default', ['dev'])
 gulp.task('dev', ['vendor', 'js', 'watch'])
 
 const knownOptions = {
-    
     string: 'packageName',
     string: 'packagePath',
     default: {
