@@ -1,29 +1,14 @@
 {
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
-    },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "sourceType": "module"
-    },
+    "extends": "standard",
+    "plugins": [
+        "standard",
+        "promise"
+    ],
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "never"
-        ]
+        "indent": [2, 4, {
+            "SwitchCase": 1
+        }],
+        "space-before-function-paren": ["warn", "never"]
     }
+
 }

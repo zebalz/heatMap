@@ -23,6 +23,13 @@
 })();
 'use strict';
 
+/* global angular */
+(function () {
+    angular.module('client.services', []);
+})();
+'use strict';
+
+/* global angular */
 (function () {
     'use-strict';
 
@@ -44,5 +51,5 @@
             }
         });
     }
-});
+})();
 "use strict";

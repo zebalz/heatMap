@@ -1,4 +1,5 @@
-(function () {
+/* global angular */
+(function() {
     'use-strict'
 
     angular
@@ -6,22 +7,21 @@
     angular
         .module('client.views').config(RouteConfig)
 
-        RouteConfig.$inject = ['$stateProvider']
+    RouteConfig.$inject = ['$stateProvider']
 
-        function RouteConfig($stateProvider){
-            $stateProvider
+    function RouteConfig($stateProvider) {
+        $stateProvider
             .state('site.index', {
-                url:'/heatmapp',
+                url: '/heatmapp',
                 abstract: true
             })
-            .state('site.index.home',{
+            .state('site.index.home', {
                 url: '/mapp',
-                views:{
-                    'root':{
+                views: {
+                    'root': {
                         component: 'mappComponent'
                     }
                 }
             })
-        }
-
-})
+    }
+})()

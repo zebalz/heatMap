@@ -1,5 +1,5 @@
 /* global angular */
-(function () {
+(function() {
     angular.module('client', [
         'ui.router', 'client.services'
     ])
@@ -24,6 +24,4 @@
         $urlRouteProvider.otherwise('/index/whack')
         $locationProvider.html5Mode(true)
     }
-
-
 })()
