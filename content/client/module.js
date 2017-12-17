@@ -1,14 +1,11 @@
+/* global angular */
 (function () {
-
     angular.module('client', [
-        'ui.router',
-        'ui.bootstrap',
-
-        'heatMapp.pages'
+        'ui.router', 'client.services'
     ])
 
     angular.module('client')
-        .congfig(RouteConfig)
+        .config(RouteConfig)
         .run(StateErrorHandler)
 
     StateErrorHandler.$inject = ['$rootScope', '$log']

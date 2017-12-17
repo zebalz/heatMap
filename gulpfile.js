@@ -87,7 +87,8 @@ function buildVendor(scripts, dest) {
         let paths = []
         chunkScripts.forEach(function (script) {
             let scriptFileName = scripts.paths[script]
-            let scriptPath = path.join(__dirname, scriptFileName)
+            debugger
+            let scriptPath = paths.join(__dirname, scriptFileName)
             if (!fs.existsSync(scriptPath)) {
                 throw console.error(`Required path doesn't exist: ${scriptPath}`, script)
             }

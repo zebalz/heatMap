@@ -1,16 +1,20 @@
 <!DOCTYPE Html>
-<html lang='en' ng-app="heatMapp" ng-strict-di>
+<html lang='en' ng-app="heatmap" ng-strict-di>
 
 <head>
     <meta charset="UTF-8">
     <base href="/" />
-    <link rel="stylesheet" href="/css/style.css">
+    <script src="./libs/angular/angular.js"></script>
 </head>
 
 <body>
 
+    <!-- VENDOR JS -->
+    <script src="/build/vendor.js"></script>
+    <!-- BUILD JS -->
+    <script src="/build/all.js"></script>
+
     <div ui-view="root"></div>
-
+    
 </body>
-
 </html>
