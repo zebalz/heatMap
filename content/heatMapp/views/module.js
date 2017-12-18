@@ -3,9 +3,9 @@
     'use-strict'
 
     angular
-        .module('client.views', ['ui.router', 'client.services'])
+        .module('heatMapp.views', ['ui.router', 'heatMapp.services'])
     angular
-        .module('client.views').config(RouteConfig)
+        .module('heatMapp.views').config(RouteConfig)
 
     RouteConfig.$inject = ['$stateProvider']
 
