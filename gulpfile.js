@@ -17,16 +17,16 @@ var source = {
     js: {
         src: [
             // root module file
-            'content/client/module.js',
+            'content/heatMapp/module.js',
 
             // subordinate module files
-            'content/client/**/module.js',
+            'content/heatMapp/**/module.js',
 
             // other js files [controllers, services, etc.]
-            'content/client/**/!(module)*.js',
+            'content/heatMapp/**/!(module)*.js',
 
             // start client app
-            'content/client/bootstrap.js'
+            'content/heatMapp/bootstrap.js'
         ]
     }
 }
@@ -87,7 +87,6 @@ function buildVendor(scripts, dest) {
         let paths = []
         chunkScripts.forEach(function (script) {
             let scriptFileName = scripts.paths[script]
-            debugger
             let scriptPath = paths.join(__dirname, scriptFileName)
             if (!fs.existsSync(scriptPath)) {
                 throw console.error(`Required path doesn't exist: ${scriptPath}`, script)
@@ -129,7 +128,7 @@ function buildProdPackage() {
         '!typings',
         '!_package',
         '!gulpfile.js',
-        '!**/client/libs/**'
+        '!**/heatMapp/libs/**'
     ]
 
     // add exclusion patterns for all dev dependencies
