@@ -2,7 +2,7 @@
 
 /* global angular */
 (function () {
-    angular.module('heatMapp', ['ui.router', 'heatMapp.services']);
+    angular.module('heatMapp', ['ui.router', 'ui.bootstrap', 'heatMapp.states']);
 
     angular.module('heatMapp').config(RouteConfig).run(StateErrorHandler);
 
@@ -41,19 +41,17 @@
 (function () {
     'use-strict';
 
-    angular.module('heatMapp.views', ['ui.router', 'heatMapp.services']);
-    angular.module('heatMapp.views').config(RouteConfig);
+    angular.module('heatMapp.states', ['ui.router', 'ui.bootstrap']);
+
+    angular.module('heatMapp.states').config(RouteConfig);
 
     RouteConfig.$inject = ['$stateProvider'];
 
     function RouteConfig($stateProvider) {
-        $stateProvider.state('site.index', {
-            url: '/heatmapp',
-            abstract: true
-        }).state('site.index.home', {
-            url: '/mapp',
+        $stateProvider.state('site', {
+            url: '/index',
             views: {
-                'root': {
+                mapp: {
                     component: 'mappComponent'
                 }
             }
@@ -65,7 +63,7 @@
 /* global angular */
 (function () {
     angular.module('heatMapp').component('mappComponent', {
-        templateUrl: "content/heatMapp/components/mappComponent/mapp-component.html",
+        templateUrl: 'heatMapp/components/mappComponent/mapp-component.html',
         controller: 'mappController as $ctrl'
     });
 

@@ -1,7 +1,7 @@
 /* global angular */
-(function() {
+(function () {
     angular.module('heatMapp', [
-        'ui.router', 'heatMapp.services'
+        'ui.router', 'ui.bootstrap', 'heatMapp.states'
     ])
 
     angular.module('heatMapp')

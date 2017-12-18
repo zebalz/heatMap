@@ -2,7 +2,7 @@
 (function () {
     angular.module('heatMapp')
         .component('mappComponent', {
-            templateUrl: "content/heatMapp/components/mappComponent/mapp-component.html",
+            templateUrl: 'heatMapp/components/mappComponent/mapp-component.html',
             controller: 'mappController as $ctrl'
         })
 
