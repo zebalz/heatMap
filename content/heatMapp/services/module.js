@@ -10,4 +10,6 @@
         return $http.get('/api/heat')
             .then(() => Promise.resolve())
     }
+
+
 })()
