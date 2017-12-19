@@ -4,6 +4,7 @@
   "dependencies": {
     "font-awesome": "latest",
     "animate.css": "latest",
+    "bootstrap":"latest",
     "angular": "latest",
     "angular-ui-router": "^1.0.3",
     "angular-bootstrap": "^2.5.0",
