@@ -13,7 +13,7 @@
                 url: '/index',
                 views: {
                     mapp: {
-                        component: 'mappComponent'
+                        component: 'addressComponent'
                     }
                 }
             })

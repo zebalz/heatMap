@@ -52,7 +52,7 @@
             url: '/index',
             views: {
                 mapp: {
-                    component: 'mappComponent'
+                    component: 'addressComponent'
                 }
             }
         });
@@ -62,16 +62,38 @@
 
 /* global angular */
 (function () {
-    angular.module('heatMapp').component('mappComponent', {
-        templateUrl: 'heatMapp/components/mappComponent/mapp-component.html',
-        controller: 'mappController as $ctrl'
+    angular.module('heatMapp').component('addressComponent', {
+        templateUrl: 'heatMapp/components/addressComponent/address-component.html',
+        controller: 'addressController as $ctrl'
     });
 
-    angular.module('heatMapp').controller('mappController', MappController);
+    angular.module('heatMapp').controller('addressController', AddressController);
 
-    MappController.$inject = ['$log', '$state'];
+    AddressController.$inject = ['$log', '$state'];
 
-    function MappController($log, $state) {
+    function AddressController($log, $state) {
+        var vm = this;
+        vm.$onInit = init;
+
+        function init() {
+            vm.hey = 'heyyyyy';
+        }
+    }
+})();
+'use strict';
+
+/* global angular */
+(function () {
+    angular.module('heatMapp').component('navbarComponent', {
+        templateUrl: 'heatMapp/components/navbarComponent/navbar-component.html',
+        controller: 'navbarController as $ctrl'
+    });
+
+    angular.module('heatMapp').controller('navbarController', navbarController);
+
+    navbarController.$inject = ['$log', '$state'];
+
+    function navbarController($log, $state) {
         var vm = this;
         vm.$onInit = init;
 
