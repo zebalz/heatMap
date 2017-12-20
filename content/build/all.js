@@ -4,9 +4,7 @@
 (function () {
     angular.module('heatMapp', ['ui.router', 'ui.bootstrap', 'heatMapp.states', 'heatMapp.services', 'mapboxgl-directive']);
 
-    angular.module('heatMapp').config(RouteConfig).run(StateErrorHandler).run([function () {
-        mapboxgl.accessToken = 'pk.eyJ1Ijoic25la2t5c25layIsImEiOiJjamF0eHd1Mzk1NjhvMnFvMmR3NGR2NDJtIn0._5awRs1gX159x4zFOz0V0g';
-    }]);
+    angular.module('heatMapp').config(RouteConfig).run(StateErrorHandler);
 
     StateErrorHandler.$inject = ['$rootScope', '$log'];
 
@@ -48,7 +46,7 @@
             url: '/index',
             views: {
                 mapp: {
-                    component: 'mappComponent'
+                    component: 'mainComponent'
                 }
             }
         });
@@ -94,6 +92,29 @@
 
 /* global angular */
 (function () {
+    angular.module('heatMapp').component('mainComponent', {
+        templateUrl: 'heatMapp/components/mainComponent/main.html',
+        controller: 'mainController',
+        bindings: {
+            formData: '<'
+        }
+    });
+
+    angular.module('heatMapp').controller('mainController', MainController);
+
+    MainController.$inject = ['$log', '$state'];
+
+    function MainController($log, $state) {
+        var vm = this;
+        vm.$onInit = init;
+
+        function init() {}
+    }
+})();
+'use strict';
+
+/* global angular */
+(function () {
     angular.module('heatMapp').component('mappComponent', {
         templateUrl: 'heatMapp/components/mappComponent/mapp-component.html',
         controller: 'mappController',
@@ -102,16 +123,18 @@
         }
     });
 
-    angular.module('heatMapp').controller('mappController', AddressController);
+    angular.module('heatMapp').controller('mappController', MappController);
 
-    AddressController.$inject = ['$log', '$state', 'mappService'];
+    MappController.$inject = ['$log', '$state', 'mappService'];
 
-    function AddressController($log, $state, mappService) {
+    function MappController($log, $state, mappService) {
         var vm = this;
         vm.postIsh = postIsh;
         vm.$onInit = init;
 
         function init() {}
+
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic25la2t5c25layIsImEiOiJjamF0eHd1Mzk1NjhvMnFvMmR3NGR2NDJtIn0._5awRs1gX159x4zFOz0V0g';
 
         function postIsh(ting) {
             mappService.post(ting).then(function (data) {
