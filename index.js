@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const dotenv = require('dotenv')
 const routes = require('./app/routes/index')
-
+const mongo = require('./app/mongodb')
 
 dotenv.config()
 const port = process.env.PORT || 0
@@ -20,5 +20,10 @@ app.use(bodyParser.urlencoded({
 // })
 app.use(routes)
 
-app.listen(port)
-console.log('Calling Zaddy on port 6661')
+mongo.connect(process.env.MONGODB_URL)
+    .then(() => app.listen(port))
+    .then(() => console.log(`Calling Zaddy on ${port}`))
+    .catch((err) => {
+        console.error(err)
+        process.exit(1)
+    })

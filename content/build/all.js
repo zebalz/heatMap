@@ -2,7 +2,7 @@
 
 /* global angular */
 (function () {
-    angular.module('heatMapp', ['ui.router', 'ui.bootstrap', 'heatMapp.states']);
+    angular.module('heatMapp', ['ui.router', 'ui.bootstrap', 'heatMapp.states', 'heatMapp.services']);
 
     angular.module('heatMapp').config(RouteConfig).run(StateErrorHandler);
 
@@ -25,15 +25,9 @@
 
 /* global angular */
 (function () {
-    angular.module('heatMapp.services', []).factory('mappService', MappService);
+    'use strict';
 
-    MappService.$inject = ['$log', '$http', '$q'];
-
-    function MappService($log, $http, $q) {
-        return $http.get('/api/heat').then(function () {
-            return Promise.resolve();
-        });
-    }
+    angular.module('heatMapp.services', []);
 })();
 'use strict';
 
@@ -62,21 +56,65 @@
 
 /* global angular */
 (function () {
+    angular.module('heatMapp.services').factory('mappService', MappService);
+
+    MappService.$inject = ['$log', '$http', '$q'];
+
+    function MappService($log, $http, $q) {
+        return {
+            readAll: readAll,
+            post: post,
+            update: update
+        };
+
+        function readAll() {
+            return $http.get('/api/heaters').then(postSuccess).catch(postError);
+        }
+
+        function post(data) {
+            return $http.post('/api/heaters', data).then(postSuccess).catch(postError);
+        }
+
+        function update(data) {
+            return $http.put('/api/heaters' + data._id, data).then(postSuccess).catch(postError);
+        }
+
+        function postSuccess(response) {
+            return response.data;
+        }
+        function postError(error) {
+            console.log(error.data);
+            return $q.reject(error.data);
+        }
+    }
+})();
+'use strict';
+
+/* global angular */
+(function () {
     angular.module('heatMapp').component('addressComponent', {
         templateUrl: 'heatMapp/components/addressComponent/address-component.html',
-        controller: 'addressController as $ctrl'
+        controller: 'addressController as $ctrl',
+        bindings: {
+            formData: '<'
+        }
     });
 
     angular.module('heatMapp').controller('addressController', AddressController);
 
-    AddressController.$inject = ['$log', '$state'];
+    AddressController.$inject = ['$log', '$state', 'mappService'];
 
-    function AddressController($log, $state) {
+    function AddressController($log, $state, mappService) {
         var vm = this;
+        vm.postIsh = postIsh;
         vm.$onInit = init;
 
-        function init() {
-            vm.hey = 'heyyyyy';
+        function init() {}
+
+        function postIsh(ting) {
+            mappService.post(ting).then(function (data) {
+                $log.log(data);
+            });
         }
     }
 })();

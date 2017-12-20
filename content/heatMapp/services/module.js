@@ -1,15 +1,6 @@
 /* global angular */
 (function () {
-    angular
-        .module('heatMapp.services', [])
-        .factory('mappService', MappService)
+    'use strict'
 
-    MappService.$inject = ['$log', '$http', '$q']
-
-    function MappService($log, $http, $q) {
-        return $http.get('/api/heat')
-            .then(() => Promise.resolve())
-    }
-
-
+    angular.module('heatMapp.services', [])
 })()

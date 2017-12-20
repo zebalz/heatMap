@@ -1,13 +1,17 @@
 const router = require('express').Router()
 const clientRoutes = require('./client.routes')
-// const heatRoutes = require('./heat.routes')
+const heatRoutes = require('./heat.routes')
 
 module.exports = router
+
+router.use('/api/heaters', heatRoutes)
+
+
+useAPIErrorHandlers(router)
 
 
 router.use(clientRoutes)
 
-useAPIErrorHandlers(router)
 
 function useAPIErrorHandlers(router) {
 
