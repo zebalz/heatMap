@@ -1,7 +1,7 @@
 /* global angular */
-(function () {
+(function() {
     angular.module('heatMapp', [
-        'ui.router', 'ui.bootstrap', 'heatMapp.states', 'heatMapp.services'
+        'ui.router', 'ui.bootstrap', 'heatMapp.states', 'heatMapp.services', 'mapboxgl-directive'
     ])
 
     angular.module('heatMapp')

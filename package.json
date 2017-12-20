@@ -20,6 +20,7 @@
     "express-validator": "^3.1.2",
     "joi": "^11.1.1",
     "joi-objectid": "^2.0.0",
+    "mapbox-gl": "^0.42.2",
     "mongodb": "^2.2.31",
     "typings": "^2.1.1"
   },

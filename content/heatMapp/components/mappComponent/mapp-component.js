@@ -1,16 +1,16 @@
 /* global angular */
-(function() {
+(function () {
     angular.module('heatMapp')
-        .component('addressComponent', {
-            templateUrl: 'heatMapp/components/addressComponent/address-component.html',
-            controller: 'addressController as $ctrl',
+        .component('mappComponent', {
+            templateUrl: 'heatMapp/components/mappComponent/mapp-component.html',
+            controller: 'mappController',
             bindings: {
                 formData: '<'
             }
         })
 
     angular.module('heatMapp')
-        .controller('addressController', AddressController)
+        .controller('mappController', AddressController)
 
     AddressController.$inject = ['$log', '$state', 'mappService']
 
@@ -23,11 +23,11 @@
 
         }
 
-        function postIsh(ting){
+        function postIsh(ting) {
             mappService.post(ting)
-            .then(data => {
-                $log.log(data)
-            })
+                .then(data => {
+                    $log.log(data)
+                })
         }
     }
 })()

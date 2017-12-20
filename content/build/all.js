@@ -46,10 +46,40 @@
             url: '/index',
             views: {
                 mapp: {
-                    component: 'addressComponent'
+                    component: 'mappComponent'
                 }
             }
         });
+    }
+})();
+'use strict';
+
+/* global angular */
+(function () {
+    angular.module('heatMapp').component('mappComponent', {
+        templateUrl: 'heatMapp/components/mappComponent/mapp-component.html',
+        controller: 'mappController',
+        bindings: {
+            formData: '<'
+        }
+    });
+
+    angular.module('heatMapp').controller('mappController', AddressController);
+
+    AddressController.$inject = ['$log', '$state', 'mappService'];
+
+    function AddressController($log, $state, mappService) {
+        var vm = this;
+        vm.postIsh = postIsh;
+        vm.$onInit = init;
+
+        function init() {}
+
+        function postIsh(ting) {
+            mappService.post(ting).then(function (data) {
+                $log.log(data);
+            });
+        }
     }
 })();
 'use strict';
@@ -85,36 +115,6 @@
         function postError(error) {
             console.log(error.data);
             return $q.reject(error.data);
-        }
-    }
-})();
-'use strict';
-
-/* global angular */
-(function () {
-    angular.module('heatMapp').component('addressComponent', {
-        templateUrl: 'heatMapp/components/addressComponent/address-component.html',
-        controller: 'addressController as $ctrl',
-        bindings: {
-            formData: '<'
-        }
-    });
-
-    angular.module('heatMapp').controller('addressController', AddressController);
-
-    AddressController.$inject = ['$log', '$state', 'mappService'];
-
-    function AddressController($log, $state, mappService) {
-        var vm = this;
-        vm.postIsh = postIsh;
-        vm.$onInit = init;
-
-        function init() {}
-
-        function postIsh(ting) {
-            mappService.post(ting).then(function (data) {
-                $log.log(data);
-            });
         }
     }
 })();

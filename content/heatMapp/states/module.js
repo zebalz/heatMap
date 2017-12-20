@@ -1,7 +1,7 @@
 /* global angular */
 (function() {
     'use-strict'
-    angular.module('heatMapp.states', ['ui.router', 'ui.bootstrap'])
+    angular.module('heatMapp.states', ['ui.router', 'ui.bootstrap', 'mapboxgl-directive'])
 
     angular.module('heatMapp.states').config(RouteConfig)
 
@@ -13,7 +13,7 @@
                 url: '/index',
                 views: {
                     mapp: {
-                        component: 'addressComponent'
+                        component: 'mappComponent'
                     }
                 }
             })
