@@ -1,5 +1,5 @@
 /* global angular */
-(function() {
+(function () {
     angular.module('heatMapp', [
         'ui.router', 'ui.bootstrap', 'heatMapp.states', 'heatMapp.services', 'mapboxgl-directive'
     ])
@@ -7,6 +7,9 @@
     angular.module('heatMapp')
         .config(RouteConfig)
         .run(StateErrorHandler)
+        .run([function () {
+            mapboxgl.accessToken = 'pk.eyJ1Ijoic25la2t5c25layIsImEiOiJjamF0eHd1Mzk1NjhvMnFvMmR3NGR2NDJtIn0._5awRs1gX159x4zFOz0V0g'
+        }])
 
     StateErrorHandler.$inject = ['$rootScope', '$log']
 

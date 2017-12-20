@@ -22,7 +22,7 @@
         function init() {
 
         }
-
+        
         function postIsh(ting) {
             mappService.post(ting)
                 .then(data => {
