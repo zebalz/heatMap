@@ -5,40 +5,44 @@
             templateUrl: 'heatMapp/components/mainComponent/main.html',
             controller: 'mainController as ctrl',
             bindings: {
-                emails: '<'
+                things: '<'
             }
         })
 
     angular.module('heatMapp')
         .controller('mainController', MainController)
 
-    MainController.$inject = ['$log', '$state', 'mappService']
+    MainController.$inject = ['$log', '$state', '$http', 'mappService', 'geoService']
 
-    function MainController($log, $state, mappService) {
+    function MainController($log, $state, $http, mappService, geoService) {
         var vm = this
         vm.$onInit = init
         vm.formData
         vm.post = post
         vm.deleteTing = deleteTing
-        vm.people = []
-        
+        vm.people = null
+        vm.getLocation = getLocation
+        vm.theplaceiam = []
 
 
         function init() {
-            vm.people = vm.emails
         }
 
-        function shit() {
-            $log.log('shit')
+
+        function getLocation() {
+            geoService.getUserLocation()
+                .then(position => {
+                    $log.log(position.coords)
+                    vm.theplaceiam.push(position.coords.long)
+                })
         }
 
-        function post() {
-            vm.people.push(vm.formData)
-            mappService.post(vm.formData)
+        function post(info) {
+            vm.people.push(info)
+            mappService.post(info)
                 .then(data => {
                     $log.log(data)
                 })
-            vm.formData = {}
         }
 
         function deleteTing(ting) {

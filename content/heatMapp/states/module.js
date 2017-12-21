@@ -17,15 +17,15 @@
                     }
                 },
                 resolve: {
-                    emails: getEmails
+                    things: get
 
                 }
             })
     }
 
-    getEmails.$inject = ['mappService']
+    get.$inject = ['mappService']
 
-    function getEmails(mappService) {
+    function get(mappService) {
         return mappService.readAll()
             .then(data => {
                 return data

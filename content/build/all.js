@@ -50,15 +50,15 @@
                 }
             },
             resolve: {
-                emails: getEmails
+                things: get
 
             }
         });
     }
 
-    getEmails.$inject = ['mappService'];
+    get.$inject = ['mappService'];
 
-    function getEmails(mappService) {
+    function get(mappService) {
         return mappService.readAll().then(function (data) {
             return data;
         });
@@ -68,6 +68,43 @@
 
 /* global angular */
 (function () {
+    'use strict';
+
+    angular.module('heatMapp.services').factory('geoService', GeoService);
+
+    GeoService.$inject = ['$log', '$http', '$q', '$window'];
+
+    function GeoService($log, $http, $q, $window) {
+        var deferred = $q.defer();
+
+        return {
+            getUserLocation: getUserLocation
+        };
+
+        function getUserLocation() {
+            if (!$window.navigator.geolocation) {
+                deferred.reject('alright then whatever bro');
+            } else {
+                $window.navigator.geolocation.getCurrentPosition(onSuccess, onError);
+            }
+            return deferred.promise;
+        }
+
+        function onSuccess(position) {
+            deferred.resolve(position);
+        }
+
+        function onError(err) {
+            deferred.reject(err);
+        }
+    }
+})();
+'use strict';
+
+/* global angular */
+(function () {
+    'use strict';
+
     angular.module('heatMapp.services').factory('mappService', MappService);
 
     MappService.$inject = ['$log', '$http', '$q'];
@@ -108,36 +145,38 @@
         templateUrl: 'heatMapp/components/mainComponent/main.html',
         controller: 'mainController as ctrl',
         bindings: {
-            emails: '<'
+            things: '<'
         }
     });
 
     angular.module('heatMapp').controller('mainController', MainController);
 
-    MainController.$inject = ['$log', '$state', 'mappService'];
+    MainController.$inject = ['$log', '$state', '$http', 'mappService', 'geoService'];
 
-    function MainController($log, $state, mappService) {
+    function MainController($log, $state, $http, mappService, geoService) {
         var vm = this;
         vm.$onInit = init;
         vm.formData;
         vm.post = post;
         vm.deleteTing = deleteTing;
-        vm.people = [];
+        vm.people = null;
+        vm.getLocation = getLocation;
+        vm.theplaceiam = [];
 
-        function init() {
-            vm.people = vm.emails;
+        function init() {}
+
+        function getLocation() {
+            geoService.getUserLocation().then(function (position) {
+                $log.log(position.coords);
+                vm.theplaceiam.push(position.coords.long);
+            });
         }
 
-        function shit() {
-            $log.log('shit');
-        }
-
-        function post() {
-            vm.people.push(vm.formData);
-            mappService.post(vm.formData).then(function (data) {
+        function post(info) {
+            vm.people.push(info);
+            mappService.post(info).then(function (data) {
                 $log.log(data);
             });
-            vm.formData = {};
         }
 
         function deleteTing(ting) {
@@ -152,6 +191,8 @@
 
 /* global angular */
 (function () {
+    "use strict";
+
     angular.module('heatMapp').component('mappComponent', {
         templateUrl: 'heatMapp/components/mappComponent/mapp-component.html',
         controller: 'mappController as ctrl'

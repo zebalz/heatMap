@@ -1,19 +1,22 @@
 <navbar-component></navbar-component>
 <mapp-component></mapp-component>
-
+<div class='container'>
+    <p>{{ctrl.theplaceiam}}</p>
+</div>
 
 <div class="container">
     <form class='row' ng-submit="ctrl.post()" name="ctrl.form" novalidate>
-        <div class="form-group col-md-12">
+        <!-- <div class="form-group col-md-12">
             <label for="email">Email address</label>
             <input type="text" class="form-control" name="email" ng-model="ctrl.formData.email" placeholder="Enter email">
         </div>
         <div class="form-group col-md-12">
             <label for="password">Password</label>
             <input type="password" class="form-control" name="password" ng-model="ctrl.formData.password" placeholder="Password">
-        </div>
+        </div> -->
         <div class="form-group col-md-12">
-            <button type="button" class="btn btn-success" ng-click="ctrl.post()">Submit</button>
+            <!-- <button type="button" class="btn btn-success" ng-click="ctrl.post()">Submit</button> -->
+            <button type="button" class="btn btn-warning" ng-click="ctrl.getLocation()">Derp</button>
         </div>
     </form>
 </div>
@@ -21,23 +24,21 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th class="col-md-3">Might be your Email</th>
-                <th class="col-md-3">Not your password</th>
-                <th class="col-md-3">Delete it</th>
-
+                <th class="col-md-3">Where u might be:</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="email in ctrl.people">
-                <td>{{email.email}}</td>
+            <tr ng-repeat="person in ctrl.theplaceiam">
+                <td>{{person.coords.latitude}}</td>
                 <td>
-                    {{email.password}}
+                    {{email.passord}}
                 </td>
                 <td>
+                    <button type="button" class="btn btn-info" ng-click="ctrl.hitGoogle()">GOOGLE</button>
                     <button type="button" class="btn btn-warning" ng-click="ctrl.deleteTing(email._id)">Delete</button>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
-<pre>{{ email| json}}</pre>
+<pre>{{ email| json}}</pre> 

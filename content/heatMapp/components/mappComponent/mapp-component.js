@@ -1,5 +1,6 @@
 /* global angular */
 (function () {
+    "use strict"
     angular.module('heatMapp')
         .component('mappComponent', {
             templateUrl: 'heatMapp/components/mappComponent/mapp-component.html',
@@ -16,7 +17,7 @@
         vm.$onInit = init
         vm.mapStyle
         vm.mapControl
-      
+
 
 
         function init() {
@@ -32,7 +33,5 @@
                 }
             }
         }
-
-   
     }
 })()
