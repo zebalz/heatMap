@@ -10,6 +10,9 @@ module.exports = {
 function readAll() {
     return conn.db().collection('heaters').find().toArray()
         .then(data => {
+            for (var i = 0; i < data.length; i++) {
+                data[i]._id.toString()
+            }
             return data
         })
 }

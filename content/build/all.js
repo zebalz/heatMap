@@ -121,6 +121,7 @@
         vm.$onInit = init;
         vm.formData;
         vm.post = post;
+        vm.deleteTing = deleteTing;
         vm.people = [];
 
         function init() {
@@ -136,6 +137,14 @@
             mappService.post(vm.formData).then(function (data) {
                 $log.log(data);
             });
+            vm.formData = {};
+        }
+
+        function deleteTing(ting) {
+            var index = vm.people.findIndex(function (item) {
+                return item._id === ting;
+            });
+            vm.people.splice(index, 1);
         }
     }
 })();

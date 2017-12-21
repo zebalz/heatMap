@@ -21,8 +21,9 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th class="col-md-2">Might be your Email</th>
-                <th class="col-md-6">Not your password</th>
+                <th class="col-md-3">Might be your Email</th>
+                <th class="col-md-3">Not your password</th>
+                <th class="col-md-3">Delete it</th>
 
             </tr>
         </thead>
@@ -32,8 +33,11 @@
                 <td>
                     {{email.password}}
                 </td>
+                <td>
+                    <button type="button" class="btn btn-warning" ng-click="ctrl.deleteTing(email._id)">Delete</button>
+                </td>
             </tr>
         </tbody>
     </table>
 </div>
-<pre>{{ctrl.formData | json}}</pre>
+<pre>{{ email| json}}</pre>
