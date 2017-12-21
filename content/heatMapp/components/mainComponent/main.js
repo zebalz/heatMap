@@ -3,23 +3,40 @@
     angular.module('heatMapp')
         .component('mainComponent', {
             templateUrl: 'heatMapp/components/mainComponent/main.html',
-            controller: 'mainController',
+            controller: 'mainController as ctrl',
             bindings: {
-                formData: '<'
+                emails: '<'
             }
         })
 
     angular.module('heatMapp')
         .controller('mainController', MainController)
 
-    MainController.$inject = ['$log', '$state']
+    MainController.$inject = ['$log', '$state', 'mappService']
 
-    function MainController($log, $state) {
+    function MainController($log, $state, mappService) {
         var vm = this
         vm.$onInit = init
+        vm.formData
+        vm.post = post
+        vm.people = []
+
 
         function init() {
+            vm.people = vm.emails
+        }
 
+        function shit() {
+            $log.log('shit')
+        }
+
+        function post() {
+            vm.people.push(vm.formData)
+            mappService.post(vm.formData)
+                .then(data => {
+                    $log.log(data)
+                   
+                })
         }
     }
 })()

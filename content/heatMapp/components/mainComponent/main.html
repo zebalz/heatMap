@@ -1,2 +1,39 @@
 <navbar-component></navbar-component>
 <mapp-component></mapp-component>
+
+
+<div class="container">
+    <form class='row' ng-submit="ctrl.post()" name="ctrl.form" novalidate>
+        <div class="form-group col-md-12">
+            <label for="email">Email address</label>
+            <input type="text" class="form-control" name="email" ng-model="ctrl.formData.email" placeholder="Enter email">
+        </div>
+        <div class="form-group col-md-12">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" ng-model="ctrl.formData.password" placeholder="Password">
+        </div>
+        <div class="form-group col-md-12">
+            <button type="button" class="btn btn-success" ng-click="ctrl.post()">Submit</button>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="col-md-2">Might be your Email</th>
+                <th class="col-md-6">Not your password</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="email in ctrl.people">
+                <td>{{email.email}}</td>
+                <td>
+                    {{email.password}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<pre>{{ctrl.formData | json}}</pre>

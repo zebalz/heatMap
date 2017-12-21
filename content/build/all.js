@@ -48,7 +48,19 @@
                 mapp: {
                     component: 'mainComponent'
                 }
+            },
+            resolve: {
+                emails: getEmails
+
             }
+        });
+    }
+
+    getEmails.$inject = ['mappService'];
+
+    function getEmails(mappService) {
+        return mappService.readAll().then(function (data) {
+            return data;
         });
     }
 })();
@@ -94,21 +106,37 @@
 (function () {
     angular.module('heatMapp').component('mainComponent', {
         templateUrl: 'heatMapp/components/mainComponent/main.html',
-        controller: 'mainController',
+        controller: 'mainController as ctrl',
         bindings: {
-            formData: '<'
+            emails: '<'
         }
     });
 
     angular.module('heatMapp').controller('mainController', MainController);
 
-    MainController.$inject = ['$log', '$state'];
+    MainController.$inject = ['$log', '$state', 'mappService'];
 
-    function MainController($log, $state) {
+    function MainController($log, $state, mappService) {
         var vm = this;
         vm.$onInit = init;
+        vm.formData;
+        vm.post = post;
+        vm.people = [];
 
-        function init() {}
+        function init() {
+            vm.people = vm.emails;
+        }
+
+        function shit() {
+            $log.log('shit');
+        }
+
+        function post() {
+            vm.people.push(vm.formData);
+            mappService.post(vm.formData).then(function (data) {
+                $log.log(data);
+            });
+        }
     }
 })();
 'use strict';
@@ -117,10 +145,7 @@
 (function () {
     angular.module('heatMapp').component('mappComponent', {
         templateUrl: 'heatMapp/components/mappComponent/mapp-component.html',
-        controller: 'mappController',
-        bindings: {
-            formData: '<'
-        }
+        controller: 'mappController as ctrl'
     });
 
     angular.module('heatMapp').controller('mappController', MappController);
@@ -129,7 +154,6 @@
 
     function MappController($log, $state, mappService) {
         var vm = this;
-        vm.postIsh = postIsh;
         vm.$onInit = init;
         vm.mapStyle;
         vm.mapControl;
@@ -146,12 +170,6 @@
                     }
                 }
             };
-        }
-
-        function postIsh(ting) {
-            mappService.post(ting).then(function (data) {
-                $log.log(data);
-            });
         }
     }
 })();

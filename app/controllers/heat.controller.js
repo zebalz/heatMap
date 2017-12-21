@@ -9,7 +9,9 @@ module.exports = {
 
 function readAll(req, res) {
     heatService.readAll()
-        .then(data => data)
+        .then(data => {
+            res.json(data)
+        })
         .catch(err => {
             console.log(err)
             res.status(500)
