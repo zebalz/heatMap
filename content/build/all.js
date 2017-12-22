@@ -159,20 +159,38 @@
         vm.formData;
         vm.post = post;
         vm.deleteTing = deleteTing;
-        vm.people = null;
+        vm.people = [];
         vm.getLocation = getLocation;
-        vm.theplaceiam = [];
+        vm.theplaceiam;
 
-        function init() {}
+        function init() {
+            vm.people = vm.things;
+        }
 
         function getLocation() {
             geoService.getUserLocation().then(function (position) {
                 $log.log(position.coords);
-                vm.theplaceiam.push(position.coords.long);
+                vm.theplaceiam = { latitude: position.coords.latitude, longitude: position.coords.latitude };
+                post(vm.theplaceiam);
             });
         }
 
-        function post(info) {
+        function post(location) {
+            if (!location) {
+                vm.people.push(vm.formData);
+                mappService.post(vm.formData).then(function (data) {
+                    $log.log(data);
+                });
+            } else {
+                mappService.post(location).then(function (data) {
+                    $log.log(data);
+                });
+            }
+
+            vm.formData = {};
+        }
+
+        function post1(info) {
             vm.people.push(info);
             mappService.post(info).then(function (data) {
                 $log.log(data);

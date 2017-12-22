@@ -18,7 +18,7 @@
             <!-- <button type="button" class="btn btn-success" ng-click="ctrl.post()">Submit</button> -->
             <button type="button" class="btn btn-warning" ng-click="ctrl.getLocation()">Derp</button>
         </div>
-    </form>
+    <!-- </form>
 </div>
 <div class="container">
     <table class="table table-striped">
@@ -41,4 +41,47 @@
         </tbody>
     </table>
 </div>
-<pre>{{ email| json}}</pre> 
+<pre>{{ email| json}}</pre>  -->
+
+<div class="container">
+    <form class='row' ng-submit="ctrl.post()" name="ctrl.form" novalidate>
+        <div class="form-group col-md-12">
+            <label for="email">Email address</label>
+            <input type="text" class="form-control" name="email" ng-model="ctrl.formData.email" placeholder="Enter email">
+        </div>
+        <div class="form-group col-md-12">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" ng-model="ctrl.formData.password" placeholder="Password">
+        </div>
+        <div class="form-group col-md-12">
+            <button type="button" class="btn btn-success" ng-click="ctrl.post()">Submit</button>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="col-md-3">Might be your Email</th>
+                <th class="col-md-3">Not your password</th>
+                <th class="col-md-3">Not your location</th>
+                <th class="col-md-3">Delete it</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="email in ctrl.people">
+                <td>{{email.email}}</td>
+                <td>
+                    {{email.password}}
+                </td>
+                <td>
+                    {{email.latitude}} {{email.longitude}}
+                </td>
+                <td>
+                    <button type="button" class="btn btn-warning" ng-click="ctrl.deleteTing(email._id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

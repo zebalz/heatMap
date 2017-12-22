@@ -20,12 +20,13 @@
         vm.formData
         vm.post = post
         vm.deleteTing = deleteTing
-        vm.people = null
+        vm.people = []
         vm.getLocation = getLocation
-        vm.theplaceiam = []
+        vm.theplaceiam
 
 
         function init() {
+            vm.people = vm.things
         }
 
 
@@ -33,11 +34,29 @@
             geoService.getUserLocation()
                 .then(position => {
                     $log.log(position.coords)
-                    vm.theplaceiam.push(position.coords.long)
+                    vm.theplaceiam = { latitude: position.coords.latitude, longitude: position.coords.latitude }
+                    post(vm.theplaceiam)
                 })
         }
 
-        function post(info) {
+        function post(location) {
+            if (!location) {
+                vm.people.push(vm.formData)
+                mappService.post(vm.formData)
+                    .then(data => {
+                        $log.log(data)
+                    })
+            } else {
+                mappService.post(location)
+                    .then(data => {
+                        $log.log(data)
+                    })
+            }
+
+            vm.formData = {}
+        }
+
+        function post1(info) {
             vm.people.push(info)
             mappService.post(info)
                 .then(data => {
